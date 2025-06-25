@@ -1,5 +1,10 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.ts
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
-  devtools: { enabled: true }
+  modules: ['@vuestic/nuxt'],
+  vuestic: {
+    config: {
+      // Тут можна додати глобальні налаштування Vuestic
+    },
+    css: ['typography', 'reset']
+  }
 })
