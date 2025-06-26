@@ -1,6 +1,13 @@
+<script setup lang="ts">
+import Layout from './components/Layout.vue';
+
+</script>
+
+
 <template>
   <div>
-    <Slider />
+    <Layout />
+    
   </div>
 </template>
 

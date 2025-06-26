@@ -6,5 +6,6 @@ export default defineNuxtConfig({
       // Тут можна додати глобальні налаштування Vuestic
     },
     css: ['typography', 'reset']
-  }
+  },
+  components: true
 })
