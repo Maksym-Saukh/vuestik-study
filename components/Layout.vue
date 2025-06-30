@@ -27,7 +27,6 @@
 
 </script>
 
-
 <template>
   <VaLayout 
     style="height: 100vh"
