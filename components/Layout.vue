@@ -1,30 +1,40 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { useBreakpoint } from 'vuestic-ui';
+import { ref, computed } from 'vue';
+import { useBreakpoint } from 'vuestic-ui';
+import Slider from './Slider.vue';
+import Send from './Send.vue';
 
-  const showSidebar = ref(true)
+type MenuItem = {
+  title: 'Slider' | 'Send' | 'Messages';
+  icon: string;
+  children?: MenuItem[];
+};
 
-  const breakpoints = useBreakpoint()
+type ActiveElement = 'Slider' | 'Send';
 
+const showSidebar = ref(true);
+const breakpoints = useBreakpoint();
+const activeElement = ref<ActiveElement>('Slider');
 
-  const activeElement = ref('Address book')
+const items: MenuItem[] = [
+  { title: 'Slider', icon: 'dashboard' },
+  { 
+    title: 'Messages', 
+    icon: 'mail', 
+    children: [
+      { title: 'Send', icon: 'send' }, 
+    ] 
+  },
+];
 
-  const items = [
-    { title: 'Slider', icon: 'dashboard' }
-    ,
-    { title: 'Messages', icon: 'mail', children: [
-       { title: 'Send', icon: 'send' },
-       { title: 'Drafts', icon: 'drafts' },
-    ] },
-    { title: 'Address book', icon: 'room' },
-    { title: 'Documents', icon: 'folder', children: [
-       { title: 'Reports', icon: 'article' },
-       { title: 'Notes', icon: 'note' },
-    ] },
-  ]
+const componentMap = {
+  'Slider': Slider,
+  'Send': Send,
+} as const;
 
-  
-
+const currentComponent = computed(() => {
+  return componentMap[activeElement.value];
+});
 </script>
 
 <template>
@@ -70,7 +80,7 @@
                 v-for="child in item.children"
                 :key="child.title"
                 :active="child.title === activeElement"
-                @click="activeElement = child.title"
+                @click="activeElement = child.title as ActiveElement"
               >
                 <VaSidebarItemContent>
                   <VaIcon :name="child.icon" />
@@ -84,7 +94,7 @@
             v-else
             :key="item.title + 'item'"
             :active="item.title === activeElement"
-            @click="activeElement = item.title"
+            @click="activeElement = item.title as ActiveElement"
           >
             <VaSidebarItemContent>
               <VaIcon :name="item.icon" />
@@ -96,15 +106,15 @@
 
       <VaSpacer />
 
-      <VaSidebarItem
+      <!-- <VaSidebarItem
         :active="'Settings' === activeElement"
         @click="activeElement = 'Settings'"
       >
-        <!-- <VaSidebarItemContent>
+        <VaSidebarItemContent>
           <VaIcon name="settings" />
           <VaSidebarItemTitle>Settings</VaSidebarItemTitle>
-        </VaSidebarItemContent> -->
-      </VaSidebarItem>
+        </VaSidebarItemContent>
+      </VaSidebarItem> -->
 
         
       </VaSidebar>
@@ -112,9 +122,16 @@
 
     <template #content>
       <main class="p-4">
+        <component :is="currentComponent" />
 
     </main>
     </template>
   </VaLayout>
 </template>
+
+<style>
+main{
+  padding: 40px;
+}
+</style>
 
