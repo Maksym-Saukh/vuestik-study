@@ -159,7 +159,7 @@ const currentComponent = computed(() => {
 
 <template>
   <VaLayout 
-    style="height: 100vh"
+    style="height: 100%"
     
     :left="{ absolute: breakpoints.smDown }"
   >
@@ -255,8 +255,11 @@ const currentComponent = computed(() => {
 
 <style>
 main{
-  padding: 40px;
+  padding: 40px 25%;
+
 }
+
+
 
 </style>
 
