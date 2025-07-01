@@ -159,12 +159,12 @@ const currentComponent = computed(() => {
 
 <template>
   <VaLayout 
-    style="height: 100%"
+    style="height: 100vh; overflow: hidden;"
     
     :left="{ absolute: breakpoints.smDown }"
   >
     <template #top>
-      <VaNavbar color="primary" class="py-2">
+      <VaNavbar color="primary" class="py-2 fixed-navbar">
         <template #left>
           <VaButton :icon="showSidebar ? 'menu_open' : 'menu'" @click="showSidebar = !showSidebar" />
         </template>
@@ -179,7 +179,7 @@ const currentComponent = computed(() => {
     <template #left>
       <VaSidebar v-model="showSidebar" 
       width="25rem"
-      
+      class="fixed-sidebar"
       >
         <VaAccordion>
         <template v-for="item in items">
@@ -245,7 +245,7 @@ const currentComponent = computed(() => {
     </template>
 
     <template #content>
-      <main class="p-4">
+      <main class="p-4 content-wrapper">
         <component :is="currentComponent" />
 
     </main>
@@ -255,9 +255,34 @@ const currentComponent = computed(() => {
 
 <style>
 main{
-  padding: 40px 25%;
+   padding: 40px 25%; 
 
 }
+.fixed-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.fixed-sidebar {
+  position: fixed;
+  top: 64px; /* Висота навігаційної панелі */
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  overflow-y: auto;
+}
+
+.content-wrapper {
+   
+  
+  padding: 40px 27%;
+  height: 91%;
+  overflow-y: auto;
+}
+
+
+
 
 
 

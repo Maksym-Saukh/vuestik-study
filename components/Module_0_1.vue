@@ -80,16 +80,13 @@ hr{
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 img{
   margin-top: 30px;
   width: 80%;
-  
-  
-
   transition: box-shadow 0.3s ease-in-out;
-  
   border-radius: 8px;
 }
 img:hover {
